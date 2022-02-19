@@ -8,24 +8,36 @@ var currentScore = document.querySelector('#currentScore')
 var answers = document.querySelector('#answers')
 var answerList = document.querySelector('#gamebox')
 var score = 0
-var acceptableAnwers = ["Yoshi", "Waffles", "Pit Bull", "It didn't have to be"]
-var questions = ["What is the best Super Mario Character?", "What is the best breakfast food?", "Who is Mr. Worldwide?", "Why was this so hard?"]
-var firstAnswer = ["Mario", "Sausage", "Snoop Doggy Dog", "That's js baybay"]
-var secondAnswer = ["Luigi", "Pancakes", "Tech Nine", "It didnt have to be"]
-var thirdAnswer = ["Yoshi", "Cereal", "Kane", "It really wasn't THAT hard"]
-var fourthAnswer = ["Toad", "Waffles", "Pit Bull", "Dude....."]
+var acceptableAnwers = ["Yoshi", "Waffles", "Pit Bull", "It didn't have to be", "The Two Towers", "The Rockies", "The Rockies"]
+var questions = ["What is the best Super Mario Character?", "What is the best breakfast food?", "Who is Mr. Worldwide?", "Why was this so hard?", "What is the best LOTR movie?", "Who is the worst team in the MLB?", "Who is the best team in the MLB?"]
+var firstAnswer = ["Mario", "Sausage", "Snoop Doggy Dog", "That's js baybay", "The Two Towers", "The Rockies", "The Marlins"]
+var secondAnswer = ["Luigi", "Pancakes", "Tech Nine", "It didnt have to be", "Return of the King", "The Dodgers", "The Diamondbacks"]
+var thirdAnswer = ["Yoshi", "Cereal", "Kane", "It really wasn't THAT hard", "The Fellowship", "The Twins", "The Rays"]
+var fourthAnswer = ["Toad", "Waffles", "Pit Bull", "Dude.....", "The Battle of Five Armys", "The Padres", "The Mariners"]
 var questionIndex = 0
 var answerKey = 0
 var timeLeft = 30
 
-function checkTime() {
-    if (timeLeft <= 0) {
-        timerDisplay.style.display='none'
-        answerList.removeChild('ul')
-        question.textContent="TIMES UP!"
-    }
+function endGame() {
+    var initials = window.prompt('Please enter your initials:')
+    question.textContent='High Scores'
+    var highscoreInput = document.createElement('li')
+    var highscoreList = document.createElement('ul')
+    answerList.appendChild(highscoreList)
+    highscoreList.appendChild(highscoreInput)
+    highscoreInput.textContent=initials + ' ' + localStorage.getItem('Score')
 }
 
+function checkTime(timerDisplay) {
+    if (timeLeft <= 0) {
+        timerDisplay.style.display='none'
+        currentScore.style.display='none'
+        answerList.removeChild(answers)
+        question.textContent="TIMES UP!"
+        localStorage.setItem('Score', score)
+        endGame()
+    }
+}
 
 
 function timerCount() {
@@ -33,7 +45,7 @@ function timerCount() {
     var timerDisplay = document.querySelector('#timer')
     timerDisplay.textContent=timeLeft
     timeLeft--
-    checkTime()
+    checkTime(timerDisplay)
 }
 
 
@@ -93,6 +105,7 @@ function FirstQuestion() {
                 }
                 else {
                     window.alert('Not right...')
+                    timeLeft -= 10
                     answerKey++
                     questionIndex++
                     answers.innerHTML=""
