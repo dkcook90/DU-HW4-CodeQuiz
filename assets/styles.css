@@ -2,10 +2,20 @@ ul {
     list-style: none;
 }
 
+/* #answers {
+    display: none;
+} */
+
 #header-box {
     width: 100vw;
     display: flex;
     justify-content: space-around;
+}
+
+#scoreBox {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
 }
 
 #ViewScores {
@@ -21,5 +31,6 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin: 50px;
 }
